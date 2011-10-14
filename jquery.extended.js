@@ -10,15 +10,22 @@
 (function($){
 
 $.fn.textWidth = function(){
-	var $this = $(this),
-		html_original = $this.html(),
-		id = window.location.href.replace(/[^a-z0-9]/gi, '');
-		html_to_calculate = '<span id="'+id+'" style="padding: 0 !important; margin: 0 !important; white-space: nowrap !important;">' + html_original + '</span>';
-
-	$this.html(html_to_calculate);
-		var width = $this.find('#'+id).width();
-	$this.html(html_original);
-
+	var width, 
+		html_original = this.html(), 
+		id = window.location.href.replace(/[^a-z0-9]/gi, ''), 
+		span = $("<span/>",{
+				id : id, 
+				css : {
+					padding : "0 !important",
+					margin : "0 !important", 
+					"white-space" : "nowrap !important"
+				}, 
+				html : html_original
+			});
+		
+	this.html(span);
+	width = span.width();
+	this.html(html_original);
 	return width;
 };
 
